@@ -63,7 +63,7 @@ namespace Assets.Scripts.Core
             ConditionalLogger.Log($"Select all {properEntities.Count} entities!");
             return properEntities;
         }
-        // дамаг поглащается в зависимости от препятствий.
+        // дамаг поглощается в зависимости от препятствий.
         private void DamageAbsorption(ref float damagePower, Vector3 dir, float dist, Vector3 sourcePoint, Vector3 receivePoint)
         {
             Debug.DrawLine(sourcePoint, receivePoint, Color.blue, 10f);
@@ -72,13 +72,13 @@ namespace Assets.Scripts.Core
             {
                 foreach (var hit in hits)
                 {
-                    // если уже весь дамаг поглащён, то смысл дальше считать что.
+                    // если уже весь дамаг поглощён, то смысл дальше считать что.
                     if (damagePower <= 0)
                         break;
                     var absorptionComp = hit.transform.parent?.GetComponent<ColliderView>()?.GetViewData<ViewDamageAbsorptionComponent>();
                     if (absorptionComp == null)
                         continue;
-                    // была мысль чтобы дамаг поглащался анизотропно, но что-то пошло не так. так что по-простому тут.
+                    // была мысль чтобы дамаг поглощался анизотропно, но что-то пошло не так. так что по-простому тут.
                     var anisotropicAbsorption = absorptionComp.AnisotropicPower * ABSORPTION_ABSOLUTE_MULT;
                     ConditionalLogger.Log($"Damage absorbed <b>{hit.transform.parent.name}</b> by {anisotropicAbsorption.sqrMagnitude}");
                     damagePower -= anisotropicAbsorption.sqrMagnitude;
